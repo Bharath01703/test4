@@ -2,25 +2,26 @@ name: Run Python Script Every 5 Minutes  # Workflow name
 
 on:
   schedule:
-    - cron: '*/5 * * * *'  # This cron expression will run every 5 minutes
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  workflow_dispatch:  # Allows manual execution
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest  # Runs on the latest version of Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2  # Check out the repository's code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'  # Use the latest Python version available
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt  # Install dependencies from 'requirements.txt'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-    - name: Run Python script
-      run: |
-        python code.py
+      - name: Run Python script
+        run: |
+          python code.py
